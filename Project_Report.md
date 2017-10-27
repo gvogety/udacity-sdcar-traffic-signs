@@ -20,9 +20,9 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./Images-For-Report/TrafficSigns-6RandomPerClassImages.png "Class Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
+[image2]: ./Images-For-Report/ImageDistTraining.png "Training"
+[image3]: ./Images-For-Report/ImageDistValidation.png "Validation"
+[image4]: ./Images-For-Report/grayscale.jpg "Testing"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
@@ -39,9 +39,9 @@ The goals / steps of this project are the following:
 Here are the Rubric Points
 
 ### Files Submitted
-	* [Note Book] (https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.ipynb)
-	* [Html] (https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html)
-	* Set of 12 Images in [test-data] (https://github.com/gvogety/udacity-sdcar-traffic-signs/tree/master/test-data)
+	* [Note Book](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.ipynb)
+	* [Html](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html)
+	* Set of 12 Images in [test-data](https://github.com/gvogety/udacity-sdcar-traffic-signs/tree/master/test-data)
 
 
 ### Data Set Summary & Exploration
@@ -63,6 +63,17 @@ Pandas library is also used to calculate the distribution of various classes for
 For each class, 6 random images are shown. 
 
 ![alt text][image1]
+
+It is also worth noting the image distribution for each set (Training, Validation and Testing). As can be seen some classes are well represented, while other not that much. For training set, any class with less than 250 images is color-coded Red (too few samples), while less than 500 is color-coded yellow (still few).
+
+
+![alt text][image2]
+
+
+![alt text][image3]
+
+
+![alt text][image4]
 
 ###Design and Test a Model Architecture
 
