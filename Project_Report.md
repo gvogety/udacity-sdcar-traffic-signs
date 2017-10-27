@@ -38,25 +38,29 @@ The goals / steps of this project are the following:
 
 Here are the Rubric Points
 
-##Data Files
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+### Files Submitted
+	* [Note Book] (https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.ipynb)
+	* [Html] (https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html)
+	* Set of 12 Images in [test-data] (https://github.com/gvogety/udacity-sdcar-traffic-signs/tree/master/test-data)
 
-###Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+### Data Set Summary & Exploration
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+Pandas library is to calculate summary statistics of the traffic signs data set:
+
+* Number of training examples = 34799
+* Number of validation examples = 
+* Number of testing examples = 12630
+* Image data shape = (32, 32, 3)
+* Number of unique classes = 43
+
+Pandas library is also used to calculate the distribution of various classes for each data set. This is used to generate the bar charts below. Its also worth noting that each set of images for a particular class are all together in the input data set. For example, all images of Class0 are together, followed by Class1, followed by Class2 etc. This fact is used in displaying the images below for further analysis.
 
 ####2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+For each class, 6 random images are shown. 
 
 ![alt text][image1]
 
