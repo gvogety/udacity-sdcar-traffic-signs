@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./Images-For_Report/TrafficSigns-6RandomPerClassImages.png "Class Visualization"
+[image1]: ./Images-For-Report/TrafficSigns-6RandomPerClassImages.png "Class Visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
