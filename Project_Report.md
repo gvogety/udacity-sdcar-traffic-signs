@@ -1,21 +1,5 @@
 #**Traffic Sign Recognition** 
 
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
-**Build a Traffic Sign Recognition Project**
-
-The goals / steps of this project are the following:
-* Load the data set (see below for links to the project data set)
-* Explore, summarize and visualize the data set
-* Design, train and test a model architecture
-* Use the model to make predictions on new images
-* Analyze the softmax probabilities of the new images
-* Summarize the results with a written report
-
 
 [//]: # (Image References)
 
@@ -24,9 +8,6 @@ The goals / steps of this project are the following:
 [image3]: ./Images-For-Report/ImageDistValidation.png "Validation"
 [image4]: ./Images-For-Report/ImageDistTest.png "Testing"
 [image5]: ./Images-For-Report/TestImages.png "Test Images  Downloaded From Web"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
 [tstimage1]: ./test-images/Image01.png "100 Speed"
 [tstimage2]: ./test-images/Image02.png "30 Speed"
 [tstimage3]: ./test-images/Image03.png "Do not enter"
@@ -36,26 +17,25 @@ The goals / steps of this project are the following:
 [tstimage7]: ./test-images/Image07.png "Yield"
 
 ## Rubric Points
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+
+Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
 Here are the Rubric Points
 
 ### Files Submitted
-	 [Note Book](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.ipynb)
-	 [Html](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html)
-	 Set of 12 Images in [test-data](https://github.com/gvogety/udacity-sdcar-traffic-signs/tree/master/test-data)
+* [Note Book](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.ipynb)
+* [Html](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html)
+*  Set of 7 Images in [test-data](https://github.com/gvogety/udacity-sdcar-traffic-signs/tree/master/test-data)
 
 
 ### Data Set Summary & Exploration
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-Pandas library is to calculate summary statistics of the traffic signs data set:
+Pandas library is used to calculate summary statistics of the traffic signs data set:
 
 * Number of training examples = 34799
 * Number of validation examples = 4410
@@ -63,7 +43,7 @@ Pandas library is to calculate summary statistics of the traffic signs data set:
 * Image data shape = (32, 32, 3)
 * Number of unique classes = 43
 
-Pandas library is also used to calculate the distribution of various classes for each data set. This is used to generate the bar charts below. Its also worth noting that each set of images for a particular class are all together in the input data set. For example, all images of Class0 are together, followed by Class1, followed by Class2 etc. This fact is used in displaying the images below for further analysis.
+Pandas library is also used to calculate the distribution of various classes for each data set. This is used to generate the bar charts below. It is also worth noting that each set of images for a particular class are all together in the input data set. For example, all images of Class0 are together, followed by Class1, followed by Class2 etc. This fact is used in displaying the images below for further analysis.
 
 ####2. Include an exploratory visualization of the dataset.
 
