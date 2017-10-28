@@ -8,13 +8,13 @@
 [image3]: ./Images-For-Report/ImageDistValidation.png "Validation"
 [image4]: ./Images-For-Report/ImageDistTest.png "Testing"
 [image5]: ./Images-For-Report/TestImages.png "Test Images  Downloaded From Web"
-[tstimage1]: ./test-images/Image01.png "100 Speed"
-[tstimage2]: ./test-images/Image02.png "30 Speed"
-[tstimage3]: ./test-images/Image03.png "Do not enter"
-[tstimage4]: ./test-images/Image04.png "Left or right"
-[tstimage5]: ./test-images/Image05.png "Road work"
-[tstimage6]: ./test-images/Image06.png "Straight or right"
-[tstimage7]: ./test-images/Image07.png "Yield"
+[tstimage1]: ./test-data/Image01.png "100 Speed"
+[tstimage2]: ./test-data/Image02.png "30 Speed"
+[tstimage3]: ./test-data/Image03.png "Do not enter"
+[tstimage4]: ./test-data/Image04.png "Left or right"
+[tstimage5]: ./test-data/Image05.png "Road work"
+[tstimage6]: ./test-data/Image06.png "Straight or right"
+[tstimage7]: ./test-data/Image07.png "Yield"
 
 ## Rubric Points
 
