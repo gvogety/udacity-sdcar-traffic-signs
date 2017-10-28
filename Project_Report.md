@@ -7,7 +7,8 @@
 [image2]: ./Images-For-Report/ImageDistTraining.png "Training"
 [image3]: ./Images-For-Report/ImageDistValidation.png "Validation"
 [image4]: ./Images-For-Report/ImageDistTest.png "Testing"
-[image5]: ./Images-For-Report/TestImages.png "Test Images  Downloaded From Web"
+[image5]: ./Images-For-Report/7TestImages.png "Test Images  Downloaded From Web"
+[image6]: ./Images-For-Report/TestImagesWithTop5Probabilities.png "Results on Sample Images"
 [tstimage1]: ./test-data/Image01.png "100 Speed"
 [tstimage2]: ./test-data/Image02.png "30 Speed"
 [tstimage3]: ./test-data/Image03.png "Do not enter"
@@ -76,70 +77,62 @@ I did not attempt additional augmentation or enhacing the number of images, alth
 
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-I experimented with 3 convolutions and 3 flat(fully connected) layers as well as 3 and 2 respectively. A 3,3 approach was only marginally better w.r.t validation and test accuracy. Each layer used a RelU activation for non-linearity. I used **xavier** initialization for all weights although I observed only marginal improvement in validation and test accuracy. For the fully connected layers, I used dropout as additional regularization technique. I did experiment with various drop outs and settled down with a keep probability of 0.75 as others were only marginally different.. No dropout was significantly worse than with dropout.
+I experimented with 3 convolutions and 3 flat(fully connected) layers as well as 3 and 2 respectively. A 3,3 approach was only marginally better w.r.t validation and test accuracy. Each layer used a RelU activation for non-linearity. I used **xavier** initialization for all weights although I observed only marginal improvement in validation and test accuracy. I used dropout as additional regularization technique. I did experiment with various drop outs and settled down with a keep probability of 0.75 as others were only marginally different.. No dropout was significantly worse than with dropout. Dropout with a probability of 0.5 needed lot more training (epochs) to achieve similar accuracies.
 My final model consisted of the following layers:
 
-| Layer        			|     Description  		     					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x1 Grayscale image						| 
-| Convolution1 3x3     	| 1x1 stride, same padding, outputs 32x32x16 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x16 				|
-| Convolution2 3x3		| 1x1 stride, same padding, outputs 16x16x32 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 8x8x32 					|
-| Convolution3 3x3		| 1x1 stride, same padding, outputs 8x8x64 		|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 4x4x64 					|
-| Fully connected 1		| Input 1024 Output 512      					|
-| Dropout				| Keep Probability=0.75							|
-| Fully connected 2		| Input 512 Output 256      					|
-| Dropout				| Keep Probability=0.75							|
-| Fully connected 3		| Input 256 Output 128      					|
-| Dropout				| Keep Probability=0.75							|
-| Output/Logits			| Input 128 Output 43 (n_classes)				|
-| Softmax				| 	     										|
+| Layer        					|     Description  		     					| 
+|:-----------------------------:|:---------------------------------------------:| 
+| Input         				| 32x32x1 Grayscale image						| 
+| Convolution1 3x3, Dropout    	| 1x1 stride, same padding, Keep-prob 0.75, outputs 32x32x16 	|
+| RELU							|												|
+| Max pooling	      			| 2x2 stride,  outputs 16x16x16 				|
+| Convolution2 3x3, Dropout		| 1x1 stride, same padding, Keep-prob 0.75, outputs 16x16x32 	|
+| RELU							|												|
+| Max pooling	      			| 2x2 stride,  outputs 8x8x32 					|
+| Convolution3 3x3, Dropout		| 1x1 stride, same padding, Keep-prob 0.75, outputs 8x8x64 		|
+| RELU							|												|
+| Max pooling	      			| 2x2 stride,  outputs 4x4x64 					|
+| Fully connected 1				| Input 1024 Output 512      					|
+| Dropout						| Keep Probability=0.75							|
+| Fully connected 2				| Input 512 Output 256      					|
+| Dropout						| Keep Probability=0.75							|
+| Fully connected 3				| Input 256 Output 128      					|
+| Dropout						| Keep Probability=0.75							|
+| Output/Logits					| Input 128 Output 43 (n_classes)				|
+| Softmax						| 	     										|
  
 
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, an Adam optimizer is used. I experimented with various learning rates and batch sizes. While they are all marginally different, a batch size of 128 and learning rate of 0.001 seems to give the best performance. I ended up going to 100 epochs as I could see upto 0.97 validation accuracy sometimes. With < 50 epochs, I could achieve 0.95. 
+To train the model, an Adam optimizer is used. I experimented with various learning rates and batch sizes. While they are all marginally different, a batch size of 128 and learning rate of 0.001 seems to give the best performance. I ended up going to 100 epochs as I could see upto 0.97 validation accuracy sometimes. With < 50 epochs, I could achieve 0.96. 
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-Initially I started with 2 convolution layers and 1 Fully connected layer. With this, the validation accuracy was around .90. Then, I increased the architecture to 3 convolution layers and 3 fully connected layers. This improved validation accuracy to 0.92. Then I introduced Xavier initialization for the weights, with only marginal improvement. The biggest improvement came from introducing dropout to fully connected layers. With atleast 50 epochs, validation accuracy is consistently above 0.95.
+Initially I started with 2 convolution layers and 1 Fully connected layer. With this, the validation accuracy was around .90. Also taking lot more epochs to reach 0.90. To improve learning is each epoch, I made it deeper by increasing the architecture to 3 convolution layers and 3 fully connected layers. This improved validation accuracy to 0.92, but test accuracy (done on a larger set) was still suffering indicating overfitting. Then I introduced Xavier initialization for the weights, with only marginal improvement. The biggest improvement both in validation and test accuracy came from introducing dropout to fully connected layers. With atleast 50 epochs, validation accuracy is consistently above 0.95. Test accuracy is around 0.95
 
-Training and validation accuracies were calcuated after every epoch, while testing accuracy was calculated after training has been completed.
+Few parameters that were tuned:
+* Learning rate: Started with 0.01 and tried upto 0.0001. A learning rate of 0.01 caused too many fluctations in accuracy numbers between epochs while 0.0001 was taking too long to converge. Settled on 0.001 as the learning was improving and converging fast enough for the data set we had.
+* Batch Size: Tried 64, 128 and 256.. 128 was converging fast enough. 
+* Dropout: Experimented with various "keep probabilities". 0.5 was taking too ling to converge whereas 0.75 was reasonable. 1.0 caused overfitting.
+* Epochs: In general, the larger the number of epochs, the better. 100 epochs was getting validation accuracy to 0.97 and test accuracy to consistently above 0.95. Even though 15-20 epochs seem to get to 0.95 validation accuracy, both test accuracy and the accuracy on the downloaded internet images, were suffering. 50 epochs seemed to be a good middle-ground.
+
+Training and validation accuracies were calcuated after every epoch, while testing accuracy was calculated after training has been completed (after all ecpochs).
 My final model results were:
 * training set accuracy of 1.0
-* validation set accuracy of 0.97 
-* test set accuracy of 0.95
+* validation set accuracy of 0.96 - 0.97 (depending on the number of epochs)
+* test set accuracy of 0.95+
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+### Test a Model on New Images
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+Here are seven German traffic signs that I found on the web [image5]:
 
-###Test a Model on New Images
-
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
-
-Here are seven German traffic signs that I found on the web:
+Individual images can be found [here](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/test-images)
 
 ![alt text][tstimage1] ![alt text][tstimage2] ![alt text][tstimage3] 
 ![alt text][tstimage4] ![alt text][tstimage5]
 ![alt text][tstimage6] ![alt text][tstimage7]
 
-The first image might be difficult to classify because ...
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -158,9 +151,17 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 6 of the 7 traffic signs, which gives an accuracy of 86%. This compares favorably to the accuracy on the test set of 95%. The only image that the model has trouble with is the one it never trained on. With the dropout regularization in place, I am confident there is little overfitting. 
 
+Here is an example of the top-5 softmax probabilities and their analysis.
+
+![top-5 probabilities][image6]
+
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
+The probabilities are pretty close to 1.0.. almost suggesting overfitting. If we look at the initial analysis of the images (random 6 for each class), some of the images are very bad quality. When I tried with images similar to them, softmax probabilities were a bit spread out just like the unsuccessful case below. In contrast, the images tried from the web are very clear and no obstructions or additional artifacts in the images (like additional signs around or text for other information (e.g. No entry between 4pm-6pm, etc.))
+
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+
+Here is a complete list of probabilities:
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
