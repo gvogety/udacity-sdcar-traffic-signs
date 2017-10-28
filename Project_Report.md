@@ -9,6 +9,7 @@
 [image4]: ./Images-For-Report/ImageDistTest.png "Testing"
 [image5]: ./Images-For-Report/7TestImages.png "Test Images  Downloaded From Web"
 [image6]: ./Images-For-Report/TestImagesWithTop5Probabilities.png "Results on Sample Images"
+[image6]: ./Images-For-Report/Grayscale.png "Grayscale"
 [tstimage1]: ./test-data/Image01.png "100 Speed"
 [tstimage2]: ./test-data/Image02.png "30 Speed"
 [tstimage3]: ./test-data/Image03.png "Do not enter"
@@ -44,7 +45,7 @@ Pandas library is also used to calculate the distribution of various classes for
 
 ##### Include an exploratory visualization of the dataset.
 
-For each class, 6 random images are shown. 
+For each class, 6 random images are shown in the following examplei (for the complete list, please check the html version of the submission [here](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html). 
 
 ![alt text][image1]
 
@@ -61,19 +62,18 @@ It is also worth noting the image distribution for each set (Training, Validatio
 
 #### Design and Test a Model Architecture
 
-As a first step, I decided to convert the images to grayscale because for the purpose of this project, where most of the image classification is based on shapes, rather than colors, it is not worth the additional processing needed for when 3(R,G,B) layers are used. In other words, if all 3 layers are used, it would have taken 3 times the computing without any additional improvement in the accuracy. When this code is ultimately used for traffic sign detection in a Self-Driving car, a video stream is being processed.. when computational simplicity is more important.
+As a first step, I decided to convert the images to grayscale because for the purpose of this project, where most of the image classification is based on shapes, rather than colors, it is not worth the additional processing needed for when 3(R,G,B) layers are used. In other words, if all 3 layers are used, it would have taken upto 3 times the computing without any additional improvement in the accuracy. When this code is ultimately used for traffic sign detection in a Self-Driving car, a video stream is being processed.. when computational simplicity is more important.
 
 Here is an example of a traffic sign image before and after grayscaling.
 
-![alt text][image2]
+![alt text][image7]
 
-As a last step, I normalized the image data. Normalizing the data helps in centering the features to a range that is of the same order of the weights and biases updated during training (gradient descent and backpropagation). Without centering, gradients can take time to stabilize (hill-climb is not smooth).
+As a last step, I normalized the image data. Normalizing the data helps in centering the features to a range that is of the same order as the weights and biases updated during training (gradient descent and backpropagation). Without centering, gradients can take time to stabilize (hill-climb is not smooth).
 
 I did not attempt additional augmentation or enhacing the number of images, although in hind-sight I felt more data would have helped in achieving better accuracy.
 
 ##### Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-I experimented with 3 convolutions and 3 flat(fully connected) layers as well as 3 and 2 respectively. A 3,3 approach was only marginally better w.r.t validation and test accuracy. Each layer used a RelU activation for non-linearity. I used **xavier** initialization for all weights although I observed only marginal improvement in validation and test accuracy. I used dropout as additional regularization technique. I did experiment with various drop outs and settled down with a keep probability of 0.75 as others were only marginally different.. No dropout was significantly worse than with dropout. Dropout with a probability of 0.5 needed lot more training (epochs) to achieve similar accuracies.
 My final model consisted of the following layers:
 
 | Layer        					|     Description  		     					| 
@@ -105,7 +105,7 @@ To train the model, an Adam optimizer is used. I experimented with various learn
 
 ##### Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-Initially I started with 2 convolution layers and 1 Fully connected layer. With this, the validation accuracy was around .90. Also taking lot more epochs to reach 0.90. To improve learning is each epoch, I made it deeper by increasing the architecture to 3 convolution layers and 3 fully connected layers. This improved validation accuracy to 0.92, but test accuracy (done on a larger set) was still suffering indicating overfitting. Then I introduced Xavier initialization for the weights, with only marginal improvement. The biggest improvement both in validation and test accuracy came from introducing dropout to fully connected layers. With atleast 50 epochs, validation accuracy is consistently above 0.95. Test accuracy is around 0.95
+Initially I started with 2 convolution layers and 1 Fully connected layer. With this, the validation accuracy was around .90. Also taking lot more epochs to reach 0.90. To improve learning is each epoch, I made it deeper by increasing the architecture to 3 convolution layers and 3 fully connected layers. This improved validation accuracy to 0.92, but test accuracy (done on a larger set) was still suffering indicating overfitting. Then I introduced Xavier initialization for the weights, with only marginal improvement. The biggest improvement both in validation and test accuracy came from introducing dropout to fully connected layers. I used dropout as additional regularization technique. I did experiment with various drop outs and settled down with a keep probability of 0.75 as others were only marginally different.. "No dropouti" was significantly worse than with dropout. Dropout with a probability of 0.5 needed lot more training (epochs) to achieve similar accuracies. With this model, With atleast 50 epochs, validation accuracy is consistently above 0.95. Test accuracy is around 0.95
 
 Few parameters that were tuned:
 * Learning rate: Started with 0.01 and tried upto 0.0001. A learning rate of 0.01 caused too many fluctations in accuracy numbers between epochs while 0.0001 was taking too long to converge. Settled on 0.001 as the learning was improving and converging fast enough for the data set we had.
