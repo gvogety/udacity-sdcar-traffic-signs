@@ -17,12 +17,8 @@
 [tstimage6]: ./test-data/Image06.png "Straight or right"
 [tstimage7]: ./test-data/Image07.png "Yield"
 
-## Rubric Points
-
-Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
-
 ---
-### Writeup / README
+### Writeup 
 
 Here are the Rubric Points
 
@@ -34,7 +30,7 @@ Here are the Rubric Points
 
 ### Data Set Summary & Exploration
 
-#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+##### Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 Pandas library is used to calculate summary statistics of the traffic signs data set:
 
@@ -46,7 +42,7 @@ Pandas library is used to calculate summary statistics of the traffic signs data
 
 Pandas library is also used to calculate the distribution of various classes for each data set. This is used to generate the bar charts below. It is also worth noting that each set of images for a particular class are all together in the input data set. For example, all images of Class0 are together, followed by Class1, followed by Class2 etc. This fact is used in displaying the images below for further analysis.
 
-####2. Include an exploratory visualization of the dataset.
+##### Include an exploratory visualization of the dataset.
 
 For each class, 6 random images are shown. 
 
@@ -63,7 +59,7 @@ It is also worth noting the image distribution for each set (Training, Validatio
 
 ![alt text][image4]
 
-###Design and Test a Model Architecture
+#### Design and Test a Model Architecture
 
 As a first step, I decided to convert the images to grayscale because for the purpose of this project, where most of the image classification is based on shapes, rather than colors, it is not worth the additional processing needed for when 3(R,G,B) layers are used. In other words, if all 3 layers are used, it would have taken 3 times the computing without any additional improvement in the accuracy. When this code is ultimately used for traffic sign detection in a Self-Driving car, a video stream is being processed.. when computational simplicity is more important.
 
@@ -75,7 +71,7 @@ As a last step, I normalized the image data. Normalizing the data helps in cente
 
 I did not attempt additional augmentation or enhacing the number of images, although in hind-sight I felt more data would have helped in achieving better accuracy.
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+##### Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 I experimented with 3 convolutions and 3 flat(fully connected) layers as well as 3 and 2 respectively. A 3,3 approach was only marginally better w.r.t validation and test accuracy. Each layer used a RelU activation for non-linearity. I used **xavier** initialization for all weights although I observed only marginal improvement in validation and test accuracy. I used dropout as additional regularization technique. I did experiment with various drop outs and settled down with a keep probability of 0.75 as others were only marginally different.. No dropout was significantly worse than with dropout. Dropout with a probability of 0.5 needed lot more training (epochs) to achieve similar accuracies.
 My final model consisted of the following layers:
@@ -103,11 +99,11 @@ My final model consisted of the following layers:
  
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+##### Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 To train the model, an Adam optimizer is used. I experimented with various learning rates and batch sizes. While they are all marginally different, a batch size of 128 and learning rate of 0.001 seems to give the best performance. I ended up going to 100 epochs as I could see upto 0.97 validation accuracy sometimes. With < 50 epochs, I could achieve 0.96. 
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+##### Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 Initially I started with 2 convolution layers and 1 Fully connected layer. With this, the validation accuracy was around .90. Also taking lot more epochs to reach 0.90. To improve learning is each epoch, I made it deeper by increasing the architecture to 3 convolution layers and 3 fully connected layers. This improved validation accuracy to 0.92, but test accuracy (done on a larger set) was still suffering indicating overfitting. Then I introduced Xavier initialization for the weights, with only marginal improvement. The biggest improvement both in validation and test accuracy came from introducing dropout to fully connected layers. With atleast 50 epochs, validation accuracy is consistently above 0.95. Test accuracy is around 0.95
 
@@ -123,7 +119,7 @@ My final model results were:
 * validation set accuracy of 0.96 - 0.97 (depending on the number of epochs)
 * test set accuracy of 0.95+
 
-### Test a Model on New Images
+#### Test a Model on New Images
 
 Here are seven German traffic signs that I found on the web [image5]:
 
@@ -134,7 +130,7 @@ Individual images can be found [here](https://github.com/gvogety/udacity-sdcar-t
 ![alt text][tstimage6] ![alt text][tstimage7]
 
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+##### Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
@@ -155,7 +151,7 @@ Here is an example of the top-5 softmax probabilities and their analysis.
 
 ![top-5 probabilities][image6]
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+##### Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The probabilities are pretty close to 1.0.. almost suggesting overfitting. If we look at the initial analysis of the images (random 6 for each class), some of the images are very bad quality. When I tried with images similar to them, softmax probabilities were a bit spread out just like the unsuccessful case below. In contrast, the images tried from the web are very clear and no obstructions or additional artifacts in the images (like additional signs around or text for other information (e.g. No entry between 4pm-6pm, etc.))
 
@@ -216,7 +212,7 @@ Here is a complete list of top-5 probabilities for each image:
 		Prediction: 2  , Probablity:  0.0
 
 
-		For the first image, the model could not predict the sign. First choice has very high probability whereas the correct choice has very low probability. One of the reasons could be the quality of the images used for training the correct choice. Also the images are very close to each other 80 vs 100km/h. The top five soft max probabilities were(at least, they are all speed limits!! :-) )
+For the first image, the model could not predict the sign. First choice has very high probability whereas the correct choice has very low probability. One of the reasons could be the quality of the images used for training the correct choice. Also the images are very close to each other 80 vs 100km/h. The top five soft max probabilities were(at least, they are all speed limits!! :-) )
 
 		| Probability         	|     Prediction	        					| 
 		|:---------------------:|:---------------------------------------------:| 
@@ -227,7 +223,7 @@ Here is a complete list of top-5 probabilities for each image:
 		| .001				    | Speed Limit (120km/h)      					|
 
 
-		For the untrained image, the probabilities are:
+For the untrained image, the probabilities are as follows.
 
     	| Probability           |     Prediction                                |
         |:---------------------:|:---------------------------------------------:|
@@ -237,7 +233,5 @@ Here is a complete list of top-5 probabilities for each image:
         | .02                  | Speed Limit (30km/h)                          |
         | .01                  | Ahead Only                         | 
 
-		### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-		####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 
