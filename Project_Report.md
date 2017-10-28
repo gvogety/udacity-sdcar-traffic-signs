@@ -149,7 +149,7 @@ Here are the results of the prediction:
 | Yield					|  Yield   										|
 
 
-The model was able to correctly guess 6 of the 7 traffic signs, which gives an accuracy of 86%. This compares favorably to the accuracy on the test set of 95%. The only image that the model has trouble with is the one it never trained on. With the dropout regularization in place, I am confident there is little overfitting. 
+The model was able to correctly guess 5 of the 7 traffic signs, which gives an accuracy of 71%. This compares favorably to the accuracy on the test set of 95%  given that one of images that the model has trouble with is the one it never trained on. With the dropout regularization in place, I am confident there is little overfitting. After removing dropout from Convolution layers, I was able to take validation accuracy to 97% that resulted with 6 out 7 images to be correctly predicted.
 
 Here is an example of the top-5 softmax probabilities and their analysis.
 
@@ -159,24 +159,85 @@ Here is an example of the top-5 softmax probabilities and their analysis.
 
 The probabilities are pretty close to 1.0.. almost suggesting overfitting. If we look at the initial analysis of the images (random 6 for each class), some of the images are very bad quality. When I tried with images similar to them, softmax probabilities were a bit spread out just like the unsuccessful case below. In contrast, the images tried from the web are very clear and no obstructions or additional artifacts in the images (like additional signs around or text for other information (e.g. No entry between 4pm-6pm, etc.))
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
 
-Here is a complete list of probabilities:
+Here are the predictions:
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+		 Result 0  Prediction 5  (Speed limit (80km/h)) Actual 7  (Speed limit (100km/h))
+		 Result 1  Prediction 1  (Speed limit (30km/h)) Actual 1  (Speed limit (30km/h))
+		 Result 1  Prediction 17 (No entry            ) Actual 17 (No entry            )
+		 Result 0  Prediction 14 (Stop                ) Actual 99 (Untrained           )
+		 Result 1  Prediction 25 (Road work           ) Actual 25 (Road work           )
+		 Result 1  Prediction 36 (Go straight or right) Actual 36 (Go straight or right)
+		 Result 1  Prediction 13 (Yield               ) Actual 13 (Yield               )
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+Here is a complete list of top-5 probabilities for each image:
+
+		Prediction: 5  , Probablity:  0.9612644910812378
+		Prediction: 2  , Probablity:  0.027884675189852715
+		Prediction: 7  , Probablity:  0.00634510163217783
+		Prediction: 3  , Probablity:  0.002374258590862155
+		Prediction: 8  , Probablity:  0.0011767109390348196
+
+		Prediction: 1  , Probablity:  0.9999516010284424
+		Prediction: 2  , Probablity:  4.845438525080681e-05
+		Prediction: 4  , Probablity:  2.8739350454998203e-08
+		Prediction: 5  , Probablity:  1.1620353984609366e-10
+		Prediction: 15 , Probablity:  6.184037310008605e-11
+
+		Prediction: 17 , Probablity:  1.0 
+		Prediction: 14 , Probablity:  1.165679052046327e-25
+		Prediction: 12 , Probablity:  5.764514759166911e-29
+		Prediction: 10 , Probablity:  4.258925946452927e-29
+		Prediction: 9  , Probablity:  1.0072247983382364e-29
+
+		Prediction: 14 , Probablity:  0.5502846240997314
+		Prediction: 13 , Probablity:  0.3339013159275055
+		Prediction: 12 , Probablity:  0.060917921364307404
+		Prediction: 1  , Probablity:  0.018204350024461746
+		Prediction: 35 , Probablity:  0.01328835915774107
+
+		Prediction: 25 , Probablity:  1.0 
+		Prediction: 22 , Probablity:  4.771009715272224e-36
+		Prediction: 31 , Probablity:  2.2502537270954726e-37
+		Prediction: 0  , Probablity:  0.0 
+		Prediction: 1  , Probablity:  0.0
+
+		Prediction: 36 , Probablity:  1.0 
+		Prediction: 38 , Probablity:  2.1336670494656595e-13
+		Prediction: 25 , Probablity:  1.9826417525965756e-13
+		Prediction: 35 , Probablity:  1.1698803004892705e-13
+		Prediction: 20 , Probablity:  6.20880435822993e-14
+
+		Prediction: 13 , Probablity:  1.0 
+		Prediction: 1  , Probablity:  1.0256778684466162e-35
+		Prediction: 12 , Probablity:  3.442555139594995e-37
+		Prediction: 0  , Probablity:  0.0 
+		Prediction: 2  , Probablity:  0.0
 
 
-For the second image ... 
+		For the first image, the model could not predict the sign. First choice has very high probability whereas the correct choice has very low probability. One of the reasons could be the quality of the images used for training the correct choice. Also the images are very close to each other 80 vs 100km/h. The top five soft max probabilities were(at least, they are all speed limits!! :-) )
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+		| Probability         	|     Prediction	        					| 
+		|:---------------------:|:---------------------------------------------:| 
+		| .961         			| Speed Limit (80km/h)   						| 
+		| .027     				| Speed Limit (50km/h) 							|
+		| .006					| Speed Limit (100km/h)							|
+		| .002	      			| Speed Limit (60km/h)			 				|
+		| .001				    | Speed Limit (120km/h)      					|
+
+
+		For the untrained image, the probabilities are:
+
+    	| Probability           |     Prediction                                |
+        |:---------------------:|:---------------------------------------------:|
+        | .55                  | Stop  											|
+        | .33                  | Yield                          |   
+        | .06                  | Priority road                         |   
+        | .02                  | Speed Limit (30km/h)                          |
+        | .01                  | Ahead Only                         | 
+
+		### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
+		####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 
