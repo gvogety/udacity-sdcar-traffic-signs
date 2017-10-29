@@ -136,7 +136,7 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Speed limit(80km/h) 	|  Speed limit(100km/h)  						| 
+| Speed limit(100km/h) 	|  Speed limit(80km/h)  						| 
 | Speed limit(30km/h) 	|  Speed limit(30km/h)							|
 | Do not enter			|  Do not enter									|
 | Left or Right Turn  	|  "Untrained Image"			 				|
