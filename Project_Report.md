@@ -45,7 +45,7 @@ Pandas library is also used to calculate the distribution of various classes for
 
 ##### Include an exploratory visualization of the dataset.
 
-For each class, 6 random images are shown in the following examplei (for the complete list, please check the html version of the submission [here](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html). 
+For each class, 6 random images are shown in the following examplei (for the complete list, please check the html version of the submission [here](https://github.com/gvogety/udacity-sdcar-traffic-signs/blob/master/Traffic_Sign_Classifier.html)). 
 
 ![alt text][image1]
 
@@ -110,7 +110,7 @@ Initially I started with 2 convolution layers and 1 Fully connected layer. With 
 Few parameters that were tuned:
 * Learning rate: Started with 0.01 and tried upto 0.0001. A learning rate of 0.01 caused too many fluctations in accuracy numbers between epochs while 0.0001 was taking too long to converge. Settled on 0.001 as the learning was improving and converging fast enough for the data set we had.
 * Batch Size: Tried 64, 128 and 256.. 128 was converging fast enough. 
-* Dropout: Experimented with various "keep probabilities". 0.5 was taking too ling to converge whereas 0.75 was reasonable. 1.0 caused overfitting.
+* Dropout: Experimented with various "keep probabilities". 0.5 was taking too long to converge whereas 0.75 was reasonable. 1.0 caused overfitting.
 * Epochs: In general, the larger the number of epochs, the better. 100 epochs was getting validation accuracy to 0.97 and test accuracy to consistently above 0.95. Even though 15-20 epochs seem to get to 0.95 validation accuracy, both test accuracy and the accuracy on the downloaded internet images, were suffering. 50 epochs seemed to be a good middle-ground.
 
 Training and validation accuracies were calcuated after every epoch, while testing accuracy was calculated after training has been completed (after all ecpochs).
@@ -136,7 +136,7 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Speed limit(100km/h) 	|  Speed limit(100km/h)  						| 
+| Speed limit(80km/h) 	|  Speed limit(100km/h)  						| 
 | Speed limit(30km/h) 	|  Speed limit(30km/h)							|
 | Do not enter			|  Do not enter									|
 | Left or Right Turn  	|  "Untrained Image"			 				|
@@ -214,24 +214,27 @@ Here is a complete list of top-5 probabilities for each image:
 
 For the first image, the model could not predict the sign. First choice has very high probability whereas the correct choice has very low probability. One of the reasons could be the quality of the images used for training the correct choice. Also the images are very close to each other 80 vs 100km/h. The top five soft max probabilities were(at least, they are all speed limits!! :-) )
 
-		| Probability         	|     Prediction	        					| 
-		|:---------------------:|:---------------------------------------------:| 
-		| .961         			| Speed Limit (80km/h)   						| 
-		| .027     				| Speed Limit (50km/h) 							|
-		| .006					| Speed Limit (100km/h)							|
-		| .002	      			| Speed Limit (60km/h)			 				|
-		| .001				    | Speed Limit (120km/h)      					|
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .961         			| Speed Limit (80km/h)   						| 
+| .027     				| Speed Limit (50km/h) 							|
+| .006					| Speed Limit (100km/h)							|
+| .002	      			| Speed Limit (60km/h)			 				|
+| .001				    | Speed Limit (120km/h)      					|
 
 
 For the untrained image, the probabilities are as follows.
 
-    	| Probability           |     Prediction                                |
-        |:---------------------:|:---------------------------------------------:|
-        | .55                  | Stop  											|
-        | .33                  | Yield                          |   
-        | .06                  | Priority road                         |   
-        | .02                  | Speed Limit (30km/h)                          |
-        | .01                  | Ahead Only                         | 
+| Probability           |     Prediction                                |
+|:---------------------:|:---------------------------------------------:|
+| .55                  | Stop  											|
+| .33                  | Yield                          |   
+| .06                  | Priority road                         |   
+| .02                  | Speed Limit (30km/h)                          |
+| .01                  | Ahead Only                         | 
 
 
+#### Enhancements
+
+As mentioned before, I did not attempt augmentation of images and other attempts to increase the number of samples. Increasing the size of labelled data would improve training and hence testing accuracy.
 
